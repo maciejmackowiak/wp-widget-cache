@@ -287,14 +287,17 @@ class WCache
 			return false;
 		}
 		
-		$f = fopen ( $filename, 'w' );
-		if (flock ( $f, LOCK_EX ))
-		{
-			fwrite ( $f, $this->__unpack_data ( $data ) );
-			flock ( $f, LOCK_UN );
-		}
-		fclose ( $f );
-		
+		$f = @fopen ( $filename, 'w' );
+		if($f) {
+            if (flock($f, LOCK_EX)) {
+                fwrite($f, $this->__unpack_data($data));
+                flock($f, LOCK_UN);
+            }
+            fclose($f);
+        }else{
+		    return false;
+        }
+
 		return true;
 	}
 

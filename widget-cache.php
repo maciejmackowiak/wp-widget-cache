@@ -580,13 +580,27 @@ class WidgetCache
 		}
 	}
 
-	function get_user_level()
-	{
-		global $current_user;
-		
-		get_currentuserinfo ();
-		return $current_user->wp_user_level;
-	}
+    function get_user_level()
+    {
+        $current_user = wp_get_current_user();
+        if(in_array('administrator', $current_user->roles)){
+            return 10;
+        }
+        if(in_array('editor', $current_user->roles)){
+            return 7;
+        }
+        if(in_array('author', $current_user->roles)){
+            return 2;
+        }
+        if(in_array('contributor', $current_user->roles)){
+            return 1;
+        }
+        if(in_array('subscriber', $current_user->roles)){
+            return 0;
+        }
+
+        return false;
+    }
 
 	function get_user_agent()
 	{

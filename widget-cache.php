@@ -326,10 +326,10 @@ class WidgetCache
                 <a name="wgcoptions"></a>
                 <h2><?php echo $this->plugin_name; ?> Options</h2>
                 <p style="line-height: 30px;">
-			<span class="submit"> <input type="submit" name="widget_cache-clear"
+                <span class="submit"> <input type="submit" name="widget_cache-clear"
                                          class="button" id="widget_cache-options-submit"
                                          value="Clear all widgets cache(<?php echo $this->wcache->cachecount(); ?>)"/>
-			</span>
+                </span>
                 </p>
             </form>
         </div>

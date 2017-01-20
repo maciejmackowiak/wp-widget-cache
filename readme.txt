@@ -63,19 +63,19 @@ Yep, WP Widget Cache is a plus for them, as it reducing the cost for caching a n
 
 View the source of your site page, there maybe some code like this at the foot:
 
-	<!-- ** queries. ** seconds. -->
+    <!-- ** queries. ** seconds. -->
 
 If not, please put these codes in your footer template:
 
-	<!-- <?php echo get_num_queries(); ?> queries. <?php timer_stop(1); ?> seconds. -->
+    <!-- <?php echo get_num_queries(); ?> queries. <?php timer_stop(1); ?> seconds. -->
 
 After using the WP Widget Cache, I think you'll find the number of 'queries' reducing a lot. Of course, that will depend on how many and what widgets you use, some sites can gain more than **70%** improvement.
 
 = How to know it works? =
 
 You can have a look at the source of the web page, and search 
-	
-	<!--WP Widget Cache End -->
+
+    <!--WP Widget Cache End -->
 
 
 == Screenshots ==

@@ -1,9 +1,9 @@
 {
-	"name"       : "archon810/wp-widget-cache",
-	"description": "A wordpress cache plugin, which caches the output of blog widgets",
-	"homepage"   : "https://github.com/archon810/wp-widget-cache/",
-	"type"       : "wordpress-plugin",
-	"require": {
-		"composer/installers": "~1.0"
-	}
+    "name": "archon810/wp-widget-cache",
+    "description": "A wordpress cache plugin, which caches the output of blog widgets",
+    "homepage": "https://github.com/archon810/wp-widget-cache/",
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "~1.0"
+    }
 }

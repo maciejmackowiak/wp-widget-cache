@@ -668,7 +668,9 @@ function widget_cache_hook_trigger()
                 if (isset ($widget_cache->triggerActions [$wact])) {
                     foreach ($widget_cache->triggerActions [$wact] as $wpaction) {
                         add_action($wpaction,
-                            create_function('$actionarg', 'widget_cache_remove("' . addslashes($wgid) . '");'),
+                            function() use ($wgid) {
+                                widget_cache_remove((string)addslashes($wgid));
+                            },
                             10, 1);
                     }
                 }

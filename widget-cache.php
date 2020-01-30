@@ -109,7 +109,7 @@ class WidgetCache
                         ),
                         "amp" => array(
                             &$this,
-                            'is_amp_endpoint'
+                            'amp_vary_param'
                         )
                     );
                 }
@@ -580,6 +580,13 @@ class WidgetCache
         return $_SERVER ['HTTP_USER_AGENT'];
     }
 
+    function amp_vary_param(){
+        if(function_exists('is_amp_endpoint') && is_amp_endpoint()){
+            return 'amp';
+        } else {
+            return 'non-amp';
+        }
+    }
     function get_current_category()
     {
         if (is_single()) {

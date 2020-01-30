@@ -1,7 +1,7 @@
 {
-    "name": "archon810/wp-widget-cache",
+    "name": "ap/wp-widget-cache",
     "description": "A wordpress cache plugin, which caches the output of blog widgets",
-    "homepage": "https://github.com/archon810/wp-widget-cache/",
+    "homepage": "https://github.com/android-police/wp-widget-cache",
     "type": "wordpress-plugin",
     "require": {
         "composer/installers": "~1.0"

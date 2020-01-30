@@ -106,6 +106,10 @@ class WidgetCache
                         "currentCategory" => array(
                             &$this,
                             'get_current_category'
+                        ),
+                        "amp" => array(
+                            &$this,
+                            'is_amp_endpoint'
                         )
                     );
                 }

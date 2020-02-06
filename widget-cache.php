@@ -99,6 +99,10 @@ class WidgetCache
                             &$this,
                             'get_user_level'
                         ),
+                        "userLoggedIn" => array(
+                            &$this,
+                            'get_is_user_logged_in'
+                        ),
                         "userAgent" => array(
                             &$this,
                             'get_user_agent'
@@ -109,7 +113,7 @@ class WidgetCache
                         ),
                         "amp" => array(
                             &$this,
-                            'amp_vary_param'
+                            'get_amp_vary_param'
                         )
                     );
                 }
@@ -575,12 +579,17 @@ class WidgetCache
         return false;
     }
 
+    function get_is_user_logged_in()
+    {
+        return (is_user_logged_in() ? 'logged' : 'not_logged');
+    }
+
     function get_user_agent()
     {
         return $_SERVER ['HTTP_USER_AGENT'];
     }
 
-    function amp_vary_param(){
+    function get_amp_vary_param(){
         if(function_exists('is_amp_endpoint') && is_amp_endpoint()){
             return 'amp';
         } else {

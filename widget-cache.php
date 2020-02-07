@@ -84,7 +84,7 @@ class WidgetCache
                         ),
                         "post" => array(
                             "delete_post",
-                            "save_post"
+                            "publish_post"
                         ),
                         "tag" => array(
                             "create_term",

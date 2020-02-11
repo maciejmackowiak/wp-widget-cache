@@ -83,8 +83,10 @@ class WidgetCache
                             "delete_link"
                         ),
                         "post" => array(
-                            "delete_post",
-                            "publish_post"
+                            "publish_post",
+                            "publish_to_draft",
+                            "publish_to_trash",
+                            "publish_to_future"
                         ),
                         "tag" => array(
                             "create_term",

@@ -14,7 +14,7 @@ class WidgetCache
 
     var $plugin_name = 'WP Widget Cache';
 
-    var $plugin_version = '0.26';
+    var $plugin_version = '0.27';
 
     var $wcache;
 
@@ -85,6 +85,7 @@ class WidgetCache
                         "post" => array(
                             "publish_post",
                             "publish_to_draft",
+                            "publish_to_pending",
                             "publish_to_trash",
                             "publish_to_future"
                         ),

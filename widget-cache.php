@@ -14,7 +14,7 @@ class WidgetCache
 
     var $plugin_name = 'WP Widget Cache';
 
-    var $plugin_version = '0.27';
+    var $plugin_version = '0.26';
 
     var $wcache;
 

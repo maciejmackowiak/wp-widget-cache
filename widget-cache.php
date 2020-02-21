@@ -85,6 +85,7 @@ class WidgetCache
                         "post" => array(
                             "publish_post",
                             "publish_to_draft",
+                            "publish_to_pending",
                             "publish_to_trash",
                             "publish_to_future"
                         ),

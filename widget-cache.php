@@ -4,7 +4,7 @@ Plugin Name:WP Widget Cache
 Plugin URI: https://github.com/rooseve/wp-widget-cache
 Description: Cache the output of your blog widgets. Usually it will significantly reduce the sql queries to your database and speed up your site.
 Author: Andrew Zhang
-Version: 0.27
+Version: 0.26.6
 Author URI: https://github.com/rooseve/wp-widget-cache
 */
 require_once(dirname(__FILE__) . "/inc/wcache.class.php");
@@ -14,7 +14,7 @@ class WidgetCache
 
     var $plugin_name = 'WP Widget Cache';
 
-    var $plugin_version = '0.27';
+    var $plugin_version = '0.26.6';
 
     var $wcache;
 

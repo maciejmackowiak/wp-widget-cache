@@ -4,7 +4,7 @@ Plugin Name:WP Widget Cache
 Plugin URI: https://github.com/rooseve/wp-widget-cache
 Description: Cache the output of your blog widgets. Usually it will significantly reduce the sql queries to your database and speed up your site.
 Author: Andrew Zhang
-Version: 0.26
+Version: 0.26.6
 Author URI: https://github.com/rooseve/wp-widget-cache
 */
 require_once(dirname(__FILE__) . "/inc/wcache.class.php");
@@ -14,7 +14,7 @@ class WidgetCache
 
     var $plugin_name = 'WP Widget Cache';
 
-    var $plugin_version = '0.26';
+    var $plugin_version = '0.26.6';
 
     var $wcache;
 
@@ -58,105 +58,108 @@ class WidgetCache
                 'widget_cache_warning'
             ));
         } else {
-            $this->__wgc_load_opts();
-
-            if ($this->wgcEnabled) {
-                if ($this->wgcAutoExpireEnabled) {
-                    $this->triggerActions = array(
-                        "category" => array(
-                            "add_category",
-                            "create_category",
-                            "edit_category",
-                            "delete_category"
-                        ),
-                        "comment" => array(
-                            "comment_post",
-                            "edit_comment",
-                            "delete_comment",
-                            "pingback_post",
-                            "trackback_post",
-                            "wp_set_comment_status"
-                        ),
-                        "link" => array(
-                            "add_link",
-                            "edit_link",
-                            "delete_link"
-                        ),
-                        "post" => array(
-                            "publish_post",
-                            "publish_to_draft",
-                            "publish_to_pending",
-                            "publish_to_trash",
-                            "publish_to_future"
-                        ),
-                        "tag" => array(
-                            "create_term",
-                            "edit_term",
-                            "delete_term"
-                        )
-                    );
-                }
-                if ($this->wgcVaryParamsEnabled) {
-                    $this->varyParams = array(
-                        "userLevel" => array(
-                            &$this,
-                            'get_user_level'
-                        ),
-                        "userLoggedIn" => array(
-                            &$this,
-                            'get_is_user_logged_in'
-                        ),
-                        "userAgent" => array(
-                            &$this,
-                            'get_user_agent'
-                        ),
-                        "currentCategory" => array(
-                            &$this,
-                            'get_current_category'
-                        ),
-                        "amp" => array(
-                            &$this,
-                            'get_amp_vary_param'
-                        )
-                    );
-                }
-                add_action('wp_head', array(
-                    &$this,
-                    'widget_cache_redirect_callback'
-                ), 99999);
-            }
-
-            if (is_admin()) {
-                add_action('admin_menu', array(
-                    &$this,
-                    'wp_add_options_page'
-                ));
-                add_action('dashmenu', array(
-                    &$this,
-                    'dashboard_delete_wg_cache'
-                ));
+            
+            add_action('init', function(){
+                $this->__wgc_load_opts();
 
                 if ($this->wgcEnabled) {
-                    add_action('sidebar_admin_page',
+                    if ($this->wgcAutoExpireEnabled) {
+                        $this->triggerActions = array(
+                            "category" => array(
+                                "add_category",
+                                "create_category",
+                                "edit_category",
+                                "delete_category"
+                            ),
+                            "comment" => array(
+                                "comment_post",
+                                "edit_comment",
+                                "delete_comment",
+                                "pingback_post",
+                                "trackback_post",
+                                "wp_set_comment_status"
+                            ),
+                            "link" => array(
+                                "add_link",
+                                "edit_link",
+                                "delete_link"
+                            ),
+                            "post" => array(
+                                "publish_post",
+                                "publish_to_draft",
+                                "publish_to_pending",
+                                "publish_to_trash",
+                                "publish_to_future"
+                            ),
+                            "tag" => array(
+                                "create_term",
+                                "edit_term",
+                                "delete_term"
+                            )
+                        );
+                    }
+                    if ($this->wgcVaryParamsEnabled) {
+                        $this->varyParams = array(
+                            "userLevel" => array(
+                                &$this,
+                                'get_user_level'
+                            ),
+                            "userLoggedIn" => array(
+                                &$this,
+                                'get_is_user_logged_in'
+                            ),
+                            "userAgent" => array(
+                                &$this,
+                                'get_user_agent'
+                            ),
+                            "currentCategory" => array(
+                                &$this,
+                                'get_current_category'
+                            ),
+                            "amp" => array(
+                                &$this,
+                                'get_amp_vary_param'
+                            )
+                        );
+                    }
+                    add_action('wp_head', array(
+                        &$this,
+                        'widget_cache_redirect_callback'
+                    ), 99999);
+                }
+
+                if (is_admin()) {
+                    add_action('admin_menu', array(
+                        &$this,
+                        'wp_add_options_page'
+                    ));
+                    add_action('dashmenu', array(
+                        &$this,
+                        'dashboard_delete_wg_cache'
+                    ));
+
+                    if ($this->wgcEnabled) {
+                        add_action('sidebar_admin_page',
+                            array(
+                                &$this,
+                                'widget_cache_options_filter'
+                            ));
+                    }
+
+                    add_action('sidebar_admin_setup',
                         array(
                             &$this,
-                            'widget_cache_options_filter'
+                            'widget_cache_expand_control'
                         ));
-                }
 
-                add_action('sidebar_admin_setup',
-                    array(
-                        &$this,
-                        'widget_cache_expand_control'
-                    ));
-
-                if (isset ($_GET ["wgdel"])) {
-                    add_action('admin_notices', array(
-                        &$this,
-                        'widget_wgdel_notice'
-                    ));
+                    if (isset ($_GET ["wgdel"])) {
+                        add_action('admin_notices', array(
+                            &$this,
+                            'widget_wgdel_notice'
+                        ));
+                    }
                 }
-            }
+            });
         }
     }
 
@@ -206,6 +209,10 @@ class WidgetCache
         $this->wgcOptions = $this->wgc_get_option('widget_cache');
         $this->wgcTriggers = $this->wgc_get_option('widget_cache_action_trigger');
         $this->wgcVaryParams = $this->wgc_get_option('widget_cache_vary_param');
+
+        $this->wgcOptions = apply_filters('wc_options', $this->wgc_get_option('widget_cache'));
+        $this->wgcTriggers = apply_filters('wc_triggers', $this->wgc_get_option('widget_cache_action_trigger'));
+        $this->wgcVaryParams = apply_filters('wc_varyparams', $this->wgc_get_option('widget_cache_vary_param'));
 
         $this->wgcEnabled = $this->wgcSettings ["wgc_disabled"] != "1";
 
